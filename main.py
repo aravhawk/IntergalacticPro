@@ -9,7 +9,7 @@ with st.expander("ℹ️ Disclaimer"):
         The basic plan is $5, and allocates you a usage quota of 50 requests per day."""
     )
 
-client = OpenAI()
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 # Ensuring session state for messages
 if "messages" not in st.session_state:
