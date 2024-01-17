@@ -1,15 +1,21 @@
 import streamlit as st
 from openai import OpenAI
+import mappings
+
+client = OpenAI()
 
 st.title("IntergalacticPro")
 
-with st.expander("ℹ️ Disclaimer"):
-    st.caption(
-        """Usage of the GPT-3.5 model in IntergalacticPro requires the basic plan. 
-        The basic plan is $5, and allocates you a usage quota of 50 requests per day."""
-    )
+model = st.selectbox("", ["GPT-3.5", "GPT-4"])
+model_id = mappings.models[model]
+plan = mappings.plans[model]
+plan_price = mappings.prices[model]
 
-client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+with st.expander("ℹ️ Usage & Pricing Disclaimer"):
+    st.caption(
+        f"""Usage of the {model} model in IntergalacticPro requires the {plan} plan. 
+        The {plan} plan is ${plan_price}, and allocates you a daily usage quota of 50 requests."""
+    )
 
 # Ensuring session state for messages
 if "messages" not in st.session_state:
@@ -29,7 +35,7 @@ if len(st.session_state["messages"]) >= max_messages:
         Thank you for your understanding, and for using IntergalacticPro today."""
     )
 else:
-    prompt = st.chat_input("Message IntergalacticPro (GPT-3.5)...")
+    prompt = st.chat_input(f"Message IntergalacticPro ({model})...")
     if prompt:
         # Append the user's message to the session state
         st.session_state["messages"].append({"role": "user", "content": prompt})
@@ -40,7 +46,7 @@ else:
             message_placeholder = st.empty()
             full_response = ""
             for response in client.chat.completions.create(
-                model="gpt-3.5-turbo-1106",
+                model=model_id,
                 messages=[{"role": "system", "content": "You are IntergalacticPro, a space and rockets expert who is highly knowledgeable, clear, and concise."}] +
                          [{"role": m["role"], "content": m["content"]} for m in st.session_state["messages"]],
                 stream=True,
