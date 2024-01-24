@@ -1,4 +1,11 @@
 # IntergalacticPro
+![License](https://img.shields.io/badge/license-proprietary-%23007ec6)
+![Version](https://img.shields.io/badge/version-2.0.0-blue)
+![Streamlit](https://img.shields.io/github/pipenv/locked/dependency-version/aravhawk/IntergalacticPro/streamlit)
+![OpenAI](https://img.shields.io/github/pipenv/locked/dependency-version/aravhawk/IntergalacticPro/openai)
+![Pricing - Basic](https://img.shields.io/badge/pricing-Basic%20Plan%20%245%2Fmonth-blue)
+![Pricing - Premium](https://img.shields.io/badge/Premium%20Plan-%2415%2Fmonth-blueviolet)
+
 A space and rockets expert who is highly knowledgeable, clear, and concise.
 
 ## Pricing
