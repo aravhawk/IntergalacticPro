@@ -1,6 +1,6 @@
 # IntergalacticPro
 ![License](https://img.shields.io/badge/license-proprietary-brightgreen)
-![Version](https://img.shields.io/badge/version-2.0.0-red)
+![Version](https://img.shields.io/badge/version-2.1.0-red)
 ![Streamlit Version](https://img.shields.io/badge/dynamic/json?url=https://pypi.python.org/pypi/streamlit/json&query=$.info.version&label=streamlit&color=ff69b4)
 ![OpenAI Version](https://img.shields.io/badge/dynamic/json?url=https://pypi.python.org/pypi/openai/json&query=$.info.version&label=openai&color=9cf)
 ![Pricing - Basic](https://img.shields.io/badge/Basic%20Plan-%245%2Fmonth-blue)
