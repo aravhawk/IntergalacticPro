@@ -24,6 +24,10 @@ def check_password():
         st.write("""IntergalacticPro has now been updated to Version 3.0.0. From now on, authentication will be handled 
         differently. Please sign up [here](https://forms.gle/4VWquc2KGPiiHRhv8), and your account will be activated 
         within half an hour (if you've already paid OR you are an officially registered 'Beta Tester').""")
+        st.write("""Note: Beta Testers are those people who have received an email on or after February 10, 2024 which 
+        is similar to the following: """)
+        with st.expander("ℹ️ Beta Tester Sample Email"):
+            st.image('IG-beta-sample-email.png')
 
     def password_entered():
         """Checks whether a password entered by the user is correct."""
