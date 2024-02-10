@@ -4,7 +4,7 @@ import hmac
 from openai import OpenAI
 import mappings
 
-ig_version = "3.0.0"
+ig_version = "3.0.1"
 
 conn = st.connection("gsheets", type=GSheetsConnection)
 df = conn.read()
@@ -21,9 +21,9 @@ def check_password():
             st.session_state["email"] = st.text_input("Email")
             st.session_state["password"] = st.text_input("Password", type="password")
             st.form_submit_button("Log in", on_click=password_entered)
-        st.write("""IntergalacticPro has now been updated to Version 3.0.0. From now on, authentication will be handled 
-        differently. Please sign up [here](https://forms.gle/4VWquc2KGPiiHRhv8), and your account will be activated 
-        within half an hour (if you've already paid OR you are an officially registered 'Beta Tester').""")
+        st.write(f"""IntergalacticPro has now been updated to Version f{ig_version}. From now on, authentication will be 
+        handled ifferently. Please sign up [here](https://forms.gle/4VWquc2KGPiiHRhv8), and your account will be 
+        activated within half an hour (if you've already paid OR you are an officially registered 'Beta Tester').""")
         st.write("""Note: Beta Testers are those people who have received an email on or after February 10, 2024 which 
         is similar to the following: """)
         with st.expander("ℹ️ Beta Tester Sample Email"):
