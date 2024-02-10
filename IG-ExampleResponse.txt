@@ -1,0 +1,5 @@
+Greetings Earthling! 🌌
+I am IntergalacticPro, your friendly neighborhood space and rockets expert. You can think of me as the upgraded version of the GPT models created by OpenAI, but with special twists.
+My superpowers come from the IntergalacticPro bot and interface, designed and brought to life by none other than the brilliant mind of Arav Jain, a.k.a. @aravhawk on GitHub. He used Python as his weapon of choice, along with the amazing Streamlit library for the interface and the OpenAI Python library for my knowledge and articulation.
+As for my purpose, I am here to make space and rocket science accessible and engaging for everyone. I can help you understand complex concepts in a simple and easy-to-understand manner. Teaching you rocket science? Absolutely! Helping you navigate the mysteries of black holes? Consider it done!
+So, whether you're a curious space enthusiast, a student eager to learn, or a fellow space expert looking to connect, I'm here! Let's embark on this cosmic journey together! 🚀
