@@ -52,6 +52,7 @@ def sign_up():
         form_submitted = True
         try:
             signup = auth.create_user_with_email_and_password(st.session_state["email"], st.session_state["password"])
+            auth.send_email_verification(signup['idToken'])
             print(signup)
             st.session_state["password_correct"] = True
             doc_ref = db.collection("users").document(st.session_state["email"])
@@ -79,7 +80,6 @@ def sign_up():
             st.session_state["user_plan"] = doc.to_dict()["Plan"]
             st.session_state["user_paid"] = doc.to_dict()["Paid"]
         except Exception as e:
-            st.error(f"Failed to create user: {e}")
             return
     # Show inputs for username + password.
     signup_form()
@@ -88,6 +88,3 @@ def sign_up():
 
 if not sign_up():
     st.stop()
-
-st.success("""Signup was successful! You may now begin using IntergalacticPro 
-[here](https://intergalacticpro.aravjain.space)""")

@@ -4,7 +4,7 @@ from google.cloud import firestore
 from openai import OpenAI
 import mappings
 
-ig_version = "3.1.1"
+ig_version = "3.1.2"
 login_form_submitted = False
 
 st.title("IntergalacticPro")
