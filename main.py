@@ -1,60 +1,67 @@
 import streamlit as st
-from streamlit_gsheets import GSheetsConnection
-import hmac
+import pyrebase
+from google.cloud import firestore
 from openai import OpenAI
 import mappings
 
-ig_version = "3.0.1"
+ig_version = "3.1.0"
+login_form_submitted = False
 
-conn = st.connection("gsheets", type=GSheetsConnection)
-df = conn.read()
+st.title("IntergalacticPro")
+st.write("[Submit a bug report](mailto:contact@aravjain.space)")
+st.write("Signup for IntergalacticPro [here](https://intergalacticpro-signup.streamlit.app)")
+
+firebaseConfig = {
+    'apiKey': st.secrets.firebaseConfig['apiKey'],
+    'authDomain': st.secrets.firebaseConfig['authDomain'],
+    'databaseURL': st.secrets.firebaseConfig['databaseURL'],
+    'projectId': st.secrets.firebaseConfig['projectId'],
+    'storageBucket': st.secrets.firebaseConfig['storageBucket'],
+    'messagingSenderId': st.secrets.firebaseConfig['messagingSenderId'],
+    'appId': st.secrets.firebaseConfig['appId'],
+    'measurementId': st.secrets.firebaseConfig['measurementId']
+}
+
+firebase = pyrebase.initialize_app(firebaseConfig)
+auth = firebase.auth()
+db = firestore.Client.from_service_account_json("intergalacticpro-firebase-key.json")
 
 
 def check_password():
-    """Returns `True` if the user had a correct password."""
+    if 'password_correct' not in st.session_state:
+        st.session_state['password_correct'] = None
 
     def login_form():
-        """Form with widgets to collect user information"""
-        st.title("IntergalacticPro")
-        st.write("[Submit a bug report](mailto:aravhawk@gmail.com)")
+        st.header("Login Form")
         with st.form("Credentials"):
             st.session_state["email"] = st.text_input("Email")
             st.session_state["password"] = st.text_input("Password", type="password")
             st.form_submit_button("Log in", on_click=password_entered)
-        st.write(f"""IntergalacticPro has now been updated to Version f{ig_version}. From now on, authentication will be 
-        handled ifferently. Please sign up [here](https://forms.gle/4VWquc2KGPiiHRhv8), and your account will be 
-        activated within half an hour (if you've already paid OR you are an officially registered 'Beta Tester').""")
-        st.write("""Note: Beta Testers are those people who have received an email on or after February 10, 2024 which 
-        is similar to the following: """)
-        with st.expander("ℹ️ Beta Tester Sample Email"):
-            st.image('IG-beta-sample-email.png')
+            st.caption("⬆️ Press it twice (not rapidly, though)")
 
     def password_entered():
-        """Checks whether a password entered by the user is correct."""
-        for row in df.itertuples():
-            if st.session_state["email"] == row.Email and hmac.compare_digest(
-                st.session_state["password"],
-                row.Password,
-            ):
-                st.session_state["password_correct"] = True
-                st.session_state["user_name"] = row.Name
-                st.session_state["user_plan"] = row.Plan
-                st.session_state["user_paid"] = mappings.paid_status[row.Paid]
-                del st.session_state["password"]  # Don't store the username or password.
-                del st.session_state["email"]
-                break
-            else:
-                st.session_state["password_correct"] = False
-
+        form_submitted = True
+        try:
+            login = auth.sign_in_with_email_and_password(st.session_state["email"], st.session_state["password"])
+            print(login)
+            st.session_state["password_correct"] = True
+            doc_ref = db.collection("users").document(st.session_state["email"])
+            doc = doc_ref.get()
+            st.session_state["user_name"] = doc.to_dict()["FirstName"] + " " + doc.to_dict()["LastName"]
+            st.session_state["user_plan"] = doc.to_dict()["Plan"]
+            st.session_state["user_paid"] = doc.to_dict()["Paid"]
+        except:
+            st.session_state["password_correct"] = False
     # Return True if the username + password is validated.
     if st.session_state.get("password_correct", False):
         return True
 
     # Show inputs for username + password.
     login_form()
-    if "password_correct" in st.session_state:
-        st.error("😕 User not known or password incorrect")
-    return False
+    if login_form_submitted:
+        if not st.session_state.get('password_correct'):
+            st.error("😕 User not known or password incorrect")
+        return False
 
 
 if not check_password():
@@ -72,7 +79,7 @@ with open('IG-ExampleResponse.txt') as file:
 
 with st.sidebar:
     st.title("IntergalacticPro")
-    st.write("[Submit a bug report](mailto:aravhawk@gmail.com)")
+    st.write("[Submit a bug report](mailto:contact@aravjain.space)")
 
     if st.session_state["user_paid"]:
         if st.session_state["user_plan"] == "Trial" or st.session_state["user_plan"] == "Basic":
@@ -165,7 +172,7 @@ if model_type == "text":
                     IntergalacticPro is only accessible via a paid, monthly subscription. The $5/month {plan} plan gives 
                     access to GPT-3.5, and the $15/month {plan} plan gives access to GPT-4 & DALL·E 3, along with some 
                     advanced developer settings (i.e. temperature, top_p, etc.). If someone would like to upgrade (or 
-                    submit a bug report), tell them to email me. My email is aravhawk@gmail.com. The current version of 
+                    submit a bug report), tell them to email me. My email is contact@aravjain.space. The current version of 
                     IntergalacticPro is v{ig_version} A good response to a user could be: '{example_response}' Also, the 
                     license's main content verbatim states: '{license_main_content}'"""}] +
                              [{"role": m["role"], "content": m["content"]} for m in st.session_state["text_messages"]],

@@ -30,7 +30,3 @@ type = {
     "DALL·E 3": "image",
     # Add more as needed
 }
-paid_status = {
-    "Yes": True,
-    "No": False,
-}
