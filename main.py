@@ -4,7 +4,7 @@ from google.cloud import firestore
 from openai import OpenAI
 import mappings
 
-ig_version = "3.1.3"
+ig_version = "3.1.4"
 login_form_submitted = False
 
 st.title("IntergalacticPro")
@@ -114,7 +114,7 @@ with st.sidebar:
         image_size = st.selectbox("Image size", ["1024x1024", "	1024x1792", "1792x1024"])
 
     st.write(f"{license_main_content}")
-    st.write("Inspired by [ChatGPT](https://chat.openai.com) Plus")
+    st.write("Inspired by [ChatGPT](https://chatgpt.com) Plus")
     st.write(f"IntergalacticPro v{ig_version}")
 
 # Ensuring session state for messages
