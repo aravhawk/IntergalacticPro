@@ -4,12 +4,12 @@ from google.cloud import firestore
 from openai import OpenAI
 import mappings
 
-ig_version = "3.1.4"
+ig_version = "3.1.5"
 login_form_submitted = False
 
 st.title("IntergalacticPro")
 st.write("[Submit a bug report](mailto:feedback@neuralbytes.net?subject=IntergalacticPro%20Feedback)")
-st.write("Signup for IntergalacticPro [here](https://intergalacticpro-register.streamlit.app)")
+st.write("Signup for IntergalacticPro [here](https://intergalacticpro-signup.neuralbytes.net)")
 
 firebaseConfig = {
     'apiKey': st.secrets.firebaseConfig['apiKey'],
