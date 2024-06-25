@@ -8,7 +8,7 @@ ig_version = "3.1.3"
 login_form_submitted = False
 
 st.title("IntergalacticPro")
-st.write("[Submit a bug report](mailto:contact@aravjain.space)")
+st.write("[Submit a bug report](mailto:feedback@neuralbytes.net?subject=IntergalacticPro%20Feedback)")
 st.write("Signup for IntergalacticPro [here](https://intergalacticpro-register.streamlit.app)")
 
 firebaseConfig = {
@@ -79,13 +79,13 @@ with open('IG-ExampleResponse.txt') as file:
 
 with st.sidebar:
     st.title("IntergalacticPro")
-    st.write("[Submit a bug report](mailto:contact@aravjain.space)")
+    st.write("[Submit a bug report](mailto:feedback@neuralbytes.net?subject=IntergalacticPro%20Feedback)")
 
     if st.session_state["user_paid"]:
         if st.session_state["user_plan"] == "Trial" or st.session_state["user_plan"] == "Basic":
             model = st.selectbox("", ["GPT-3.5"])
         elif st.session_state["user_plan"] == "Premium":
-            model = st.selectbox("", ["GPT-4", "DALL·E 3"])
+            model = st.selectbox("", ["GPT-4o", "DALL·E 3"])
         model_id = mappings.models[model]
         plan = mappings.plans[model]
         plan_price = mappings.prices[model]
@@ -167,14 +167,16 @@ if model_type == "text":
                     is highly knowledgeable, clear, concise, and friendly. The current user's name is 
                     {st.session_state["user_name"]} You are based on the {model} model created by OpenAI, but the 
                     IntergalacticPro bot and interface were created/designed by Arav Jain (https://github.com/aravhawk), 
-                    using Python. Arav Jain is a 13-year-old programmer and space enthusiast who lives in the United 
-                    States. The Streamlit library is used for the interface, along with the OpenAI Python library. Also,
-                    IntergalacticPro is only accessible via a paid, monthly subscription. The $5/month {plan} plan gives 
-                    access to GPT-3.5, and the $15/month {plan} plan gives access to GPT-4 & DALL·E 3, along with some 
-                    advanced developer settings (i.e. temperature, top_p, etc.). If someone would like to upgrade (or 
-                    submit a bug report), tell them to email me. My email is contact@aravjain.space. The current version of 
-                    IntergalacticPro is v{ig_version} A good response to a user could be: '{example_response}' Also, the 
-                    license's main content verbatim states: '{license_main_content}'"""}] +
+                    using Python. IntergalacticPro is a part of Arav's company, NeuralBytes (neuralbytes.net). Arav Jain 
+                    is a 13-year-old programmer and space enthusiast who lives in the United States. The Streamlit 
+                    library is used for the interface, along with the OpenAI Python library. Also, IntergalacticPro is 
+                    only accessible via a paid, monthly subscription. The $5/month {plan} plan gives access to GPT-3.5, 
+                    and the $15/month {plan} plan gives access to GPT-4o & DALL·E 3, along with some advanced developer 
+                    settings (i.e. temperature, top_p, etc.). If someone would like to upgrade, let them know to email 
+                    billing@neuralbytes.net. If someone would like to submit a bug report or feedback, let them know to 
+                    email feedback@neuralbytes.net The current version of IntergalacticPro is v{ig_version} A good 
+                    response to a user could be: '{example_response}' Also, the license's main content verbatim states: 
+                    '{license_main_content}'"""}] +
                              [{"role": m["role"], "content": m["content"]} for m in st.session_state["text_messages"]],
                     stream=True,
                     temperature=temperature,
@@ -215,7 +217,7 @@ elif model_type == "image":
 st.markdown(f"""
 <footer style='text-align: center; color: grey; position: fixed;'>
     <p style='margin: 20px; padding: 10px;'>
-        IntergalacticPro {ig_version} — AI can make mistakes. Consider checking important information.
+        IntergalacticPro {ig_version} — AI can make mistakes. Check important info.
     </p>
 </footer>
 """, unsafe_allow_html=True)

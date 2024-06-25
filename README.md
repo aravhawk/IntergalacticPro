@@ -11,7 +11,7 @@ A space and rockets expert who is highly knowledgeable, clear, concise, and frie
 ## Pricing
 * Free Trial - Includes 50 GPT-3.5 Requests Per Session: 3 days, automatic account deactivation afterward
 * Basic Plan - Includes 50 GPT-3.5 Requests Per Session: $5/month
-* Premium Plan - Includes 50 GPT-4 and 5 DALL·E 3 Requests Per Session (also includes dev tools): $15/month
+* Premium Plan - Includes 50 GPT-4o and 5 DALL·E 3 Requests Per Session (also includes dev tools): $15/month
 
 ## License
 This project is proprietary software. All rights are reserved by Arav Jain. Unauthorized copying, modification, distribution, or use of this project, "IntergalacticPro", or any of its parts, via any medium, is strictly prohibited. Proprietary and confidential.

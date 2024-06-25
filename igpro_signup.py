@@ -5,7 +5,7 @@ from google.cloud import firestore
 signup_form_submitted = False
 
 st.title("IntergalacticPro Signup Page")
-st.write("[Submit a bug report](mailto:contact@aravjain.space)")
+st.write("[Submit a bug report](mailto:feedback@neuralbytes.net?subject=IntergalacticPro%20Feedbacke)")
 
 firebaseConfig = {
     'apiKey': st.secrets.firebaseConfig['apiKey'],
