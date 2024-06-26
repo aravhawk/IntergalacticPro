@@ -4,11 +4,24 @@ from google.cloud import firestore
 from openai import OpenAI
 import mappings
 
-ig_version = "3.1.5"
+ig_version = "3.1.6"
 login_form_submitted = False
 
+st.set_page_config(
+    page_title=f"IntergalacticPro (v{ig_version})",
+    page_icon=":rocket:",
+    layout="centered",
+    initial_sidebar_state="auto",
+    menu_items={
+        'Get help': 'mailto:support@neuralbytes.net?subject=Need%20Help%20with%20IntergalacticPro',
+        'Report a bug': 'mailto:bugs@neuralbytes.net?subject=IntergalacticPro%20Bug%20Report',
+        'About': '''### IntergalacticPro: A space and rockets expert who is highly knowledgeable, clear, concise, and friendly. \n
+        https://intergalacticpro.neuralbytes.net'''
+    }
+)
+
 st.title("IntergalacticPro")
-st.write("[Submit a bug report](mailto:feedback@neuralbytes.net?subject=IntergalacticPro%20Feedback)")
+st.write("[Help improve IntergalacticPro](mailto:feedback@neuralbytes.net?subject=IntergalacticPro%20Feedback)")
 st.write("Signup for IntergalacticPro [here](https://intergalacticpro-signup.neuralbytes.net)")
 
 firebaseConfig = {
@@ -79,7 +92,7 @@ with open('IG-ExampleResponse.txt') as file:
 
 with st.sidebar:
     st.title("IntergalacticPro")
-    st.write("[Submit a bug report](mailto:feedback@neuralbytes.net?subject=IntergalacticPro%20Feedback)")
+    st.write("[Help improve IntergalacticPro](mailto:feedback@neuralbytes.net?subject=IntergalacticPro%20Feedback)")
 
     if st.session_state["user_paid"]:
         if st.session_state["user_plan"] == "Trial" or st.session_state["user_plan"] == "Basic":
@@ -173,14 +186,16 @@ if model_type == "text":
                     only accessible via a paid, monthly subscription. The $5/month {plan} plan gives access to GPT-3.5, 
                     and the $15/month {plan} plan gives access to GPT-4o & DALL·E 3, along with some advanced developer 
                     settings (i.e. temperature, top_p, etc.). If someone would like to upgrade, let them know to email 
-                    billing@neuralbytes.net. If someone would like to submit a bug report or feedback, let them know to 
-                    email feedback@neuralbytes.net The current version of IntergalacticPro is v{ig_version} A good 
-                    response to a user could be: '{example_response}' Also, the license's main content verbatim states: 
-                    '{license_main_content}'"""}] +
+                    billing@neuralbytes.net. If someone would like to submit a bug report, let them know to 
+                    email bugs@neuralbytes.net. If someone would like to provide feedback (or seems like they want to 
+                    help improve the app), let them know to email feedback@neuralbytes.net. If someone would like 
+                    assistance, let them know to email support@neuralbytes.net. The current version of IntergalacticPro 
+                    is v{ig_version} A good response to a user could be: '{example_response}' Also, the license's main 
+                    content verbatim states: '{license_main_content}'"""}] +
                              [{"role": m["role"], "content": m["content"]} for m in st.session_state["text_messages"]],
                     stream=True,
                     temperature=temperature,
-                    top_p=top_p,
+                    top_p=top_p
                 ):
                     incremental_content = response.choices[0].delta.content or ""
                     full_response += incremental_content
@@ -217,7 +232,7 @@ elif model_type == "image":
 st.markdown(f"""
 <footer style='text-align: center; color: grey; position: fixed;'>
     <p style='margin: 20px; padding: 10px;'>
-        IntergalacticPro {ig_version} — AI can make mistakes. Check important info.
+        IntergalacticPro v{ig_version} — AI can make mistakes. Check important info.
     </p>
 </footer>
 """, unsafe_allow_html=True)
