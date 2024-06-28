@@ -4,7 +4,7 @@ from google.cloud import firestore
 from openai import OpenAI
 import mappings
 
-ig_version = "3.1.6"
+ig_version = "3.1.7"
 login_form_submitted = False
 
 st.set_page_config(
@@ -82,7 +82,11 @@ if not check_password():
 
 # Main app starts here
 
-client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+client = OpenAI(
+    api_key=st.secrets["OPENAI_API_KEY"],
+    organization=st.secrets["OPENAI_ORGANIZATION_ID"],
+    project=st.secrets["OPENAI_PROJECT_ID"]
+)
 
 license_main_content = '''Unauthorized copying, modification, distribution, or use of this project, "IntergalacticPro", 
 or any of its parts, via any medium, is strictly prohibited. Proprietary and confidential.'''
