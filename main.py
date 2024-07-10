@@ -4,7 +4,7 @@ from google.cloud import firestore
 from openai import OpenAI
 import mappings
 
-ig_version = "3.1.7"
+ig_version = "3.1.8"
 login_form_submitted = False
 
 st.set_page_config(
@@ -203,7 +203,7 @@ if model_type == "text":
                 ):
                     incremental_content = response.choices[0].delta.content or ""
                     full_response += incremental_content
-                    message_placeholder.markdown(full_response + "▌")
+                    message_placeholder.markdown(full_response + "⬤")
 
                 # Remove the typewriter effect cursor for the final message
                 message_placeholder.markdown(full_response)
